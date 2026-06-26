@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextStepCoders | Engineering & AI Projects</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #030b1d;
+            --text-primary: #def7fd;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #334155;
+            --card-bg: #1e293b;
+            --badge-bg: rgba(59, 130, 246, 0.1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #535a64;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+            --badge-bg: rgba(37, 99, 235, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navbar Layout Updates */
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .startup-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: flex-end;
+            gap: 3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle-container {
+            margin-left: 1rem;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0 3rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .cta-btn {
+            background-color: var(--accent);
+            color: #ffffff;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+        }
+
+        .cta-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Targeting Section */
+        .target-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .target-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .target-card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* Subtabs / Research Assistance */
+        .research-banner {
+            background: var(--badge-bg);
+            border: 1px dashed var(--accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Technologies Section */
+        .tech-section {
+            padding: 5rem 0;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 12px;
+        }
+
+        .tech-card.specialization {
+            border: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .special-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background-color: var(--accent);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tech-card h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .tech-list {
+            list-style: none;
+        }
+
+        .tech-list li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-list li i {
+            color: var(--accent);
+            font-size: 0.85rem;
+        }
+
+        /* Owner Section */
+        .owner-section {
+            padding: 5rem 0 2rem 0;
+        }
+
+        .owner-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .owner-img-placeholder {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .owner-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .owner-title {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* New Vision, Mission, About Layout */
+        .about-us-section {
+            padding: 2rem 0 5rem 0;
+        }
+
+        .about-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .about-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .about-box p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .vm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+        }
+
+        .vm-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+        }
+
+        .vm-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .vm-card p {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            margin-bottom: 1rem;
+        }
+
+        .vm-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .owner-card { flex-direction: column; text-align: center; padding: 2rem; }
+            .stats-grid { justify-content: center; }
+            .nav-links { display: none; }
+            .vm-grid { grid-template-columns: 1fr; }
+            .about-box, .vm-card { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+<header>
+    <div class="container nav">
+        <div class="logo-wrapper">
+            <a href="#" style="text-decoration: none; display: flex; align-items: center;">
+                <img src="LogoNSC1.png" alt="NextStepCoders Logo" class="startup-logo">
+            </a>
+            
+            <div class="logo">
+                    NextStepCoders
+                </div>
+            <!-- Text name removed entirely, image acts as the primary brand element -->
+            
+        </div>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="#projects">Domains</a></li>
+                <li><a href="#technologies">Technologies</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <div class="theme-toggle-container">
+                <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()">
+                    <i id="themeIcon" class="fa-solid fa-sun"></i> <span id="themeText">Light Mode</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <!-- Hero Section -->
+    <section class="container hero">
+        <h1>Transforming Concepts into <span>Deployment-Ready Projects</span></h1>
+        <p>We provide comprehensive end-to-end implementation and guidance for students and working professionals. From foundational system architecture to cutting-edge AI deployments.</p>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nextstepcoders@gmail.com"
+        target="_blank"
+        class="cta-btn">
+        <i class="fa-solid fa-paper-plane"></i> Request a Project Consultation
+        </a>
+
+        <!-- Target Groups -->
+        <div class="target-grid" id="projects">
+            <div class="target-card">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h3>Diploma Projects</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Robust diploma engineering basics built with clean logic.</p>
+            </div>
+            <div class="target-card">
+                <i class="fa-solid fa-user-graduate"></i>
+                <h3>UG Projects (B.Tech/BE)</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Advanced application architectures & algorithms.</p>
+            </div>
+            <div class="target-card">
+                <i class="fa-solid fa-award"></i>
+                <h3>PG Projects (M.Tech)</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Research-grade implementations and models.</p>
+            </div>
+        </div>
+
+        <!-- Secondary Subtab Highlight -->
+        <div class="research-banner">
+            <i class="fa-solid fa-book-bookmark" style="color: var(--accent); font-size: 1.2rem;"></i>
+            <p style="font-weight: 500;"><strong>Research Assistance:</strong> We also provide editing and technical support for writing theses and publishing papers in indexed journals and conferences.</p>
+        </div>
+    </section>
+
+    <!-- Technologies Section -->
+    <section class="tech-section" id="technologies">
+        <div class="container">
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="tech-grid">
+                <!-- Stack 1 -->
+                <div class="tech-card">
+                    <h3><i class="fa-solid fa-code"></i> Full Stack Core</h3>
+                    <ul class="tech-list">
+                        <li><i class="fa-solid fa-check"></i> Frontend: HTML5, CSS3, React Framework</li>
+                        <li><i class="fa-solid fa-check"></i> Backend Architectures</li>
+                        <li><i class="fa-solid fa-check"></i> API Integration & Database Management</li>
+                    </ul>
+                </div>
+                <!-- Stack 2: Core Focus -->
+                <div class="tech-card specialization">
+                    <div class="special-badge">Specialization</div>
+                    <h3><i class="fa-solid fa-brain"></i> AI & Machine Learning</h3>
+                    <ul class="tech-list">
+                        <li><i class="fa-solid fa-check"></i> Advanced Deep Learning Models</li>
+                        <li><i class="fa-solid fa-check"></i> Computer Vision & Image Processing</li>
+                        <li><i class="fa-solid fa-check"></i> Natural Language Processing (NLP)</li>
+                    </ul>
+                </div>
+                <!-- Stack 3: New Domain -->
+                <div class="tech-card">
+                    <h3><i class="fa-solid fa-network-wired"></i> Smart Systems</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem;">Expanding boundaries into hardware-software intelligence.</p>
+                    <ul class="tech-list">
+                        <li style="color: var(--text-primary); font-weight: 600;"><i class="fa-solid fa-star" style="color: #eab308;"></i> ML + IoT Based Projects <span style="font-size: 0.75rem; background: #eab308; color: black; padding: 1px 6px; border-radius: 4px; margin-left:5px;">NEW</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Owner / Mentor Profile Section
+    <section class="container owner-section" id="about">
+    <div class="owner-card">
+        <img src="owner.png" alt="Er. Sumit Sonar" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); flex-shrink: 0;" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=sumit';">
+        
+        <div class="owner-info">
+            <h3>Er. Sumit Sonar</h3>
+            <p class="owner-title">B.Tech in AI/ML | Lecturer & Researcher</p>
+            <p style="color: var(--text-secondary);">A passionate academician helping students navigate complex software Engineering hurdles through structured guidance and rigorous engineering methodologies.</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-num">1</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Patent Published</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">2</div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary);">Copyrights</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+    <!-- New Vision, Mission, and About Us Section -->
+    <section class="container about-us-section" id="about">
+        <div class="about-box">
+            <h3><i class="fa-solid fa-rocket"></i> About Us</h3>
+            <p>NextStepCoders exists to turn ideas into reality. We help students and working professionals who have innovative concepts but lack the skills, time, or development experience to build them. From validating your idea to developing a production-ready application, we become your technical partner, helping you create impactful, real-world software with confidence.</p>
+        </div>
+
+        <div class="vm-grid">
+            <div class="vm-card">
+                <h4><i class="fa-solid fa-eye"></i> Our Vision</h4>
+                <p>Our vision is to become the go-to technology partner for aspiring innovators, helping students and professionals turn their concepts into successful software products. By combining practical engineering, expert guidance, and modern development practices, we enable every idea to reach its full potential.</p>
+            </div>
+            
+            <!-- <div class="vm-card">
+                <h4><i class="fa-solid fa-bullseye"></i> Our Mission</h4>
+                <p>We aim to spark innovation and problem-solving capabilities in the next generation of technologists by emphasizing rigorous conceptual clarity and practical application architectures. We create engineering ecosystems that mirror production-ready environments, pushing teams not just to write lines of code, but to master seamless system integration, documentation, and technical teamwork.</p>
+                <p>Across all our domains—extending from robust system integrations to advanced Deep Learning models—we work ensuring that individuals develop as independent, professional thinkers equipped to resolve immediate real-world challenges.</p>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 NextStepCoders</p>
+            <p>Engineered for Professional Excellence</p>
+        </div>
+    </footer>
+
+    <!-- Light/Dark Mode Logic Switcher -->
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fa-solid fa-moon';
+                themeText.innerText = 'Dark Mode';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fa-solid fa-sun';
+                themeText.innerText = 'Light Mode';
+            }
+        }
+    </script>
+</body>
+</html>
